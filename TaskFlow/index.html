@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>TaskFlow - Управление задачами</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="index.html" class="nav__brand">TaskFlow</a>
+            <div class="nav__links">
+                <a href="index.html" class="nav__link nav__link--active">Задачи</a>
+                <a href="currency.html" class="nav__link">Валюты</a>
+                <a href="expenses.html" class="nav__link">Расходы</a>
+                <a href="login.html" class="nav__link" id="login-link">Войти</a>
+                <span id="user-chip" class="chip" style="display:none;"></span>
+                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Выйти</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+                    <span class="theme-toggle__icon">🌞</span>
+                    <span class="theme-toggle__text">Светлая</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="app" aria-labelledby="app-title">
+        <h1 id="app-title" class="app__title">Управление задачами</h1>
+
+        <section class="weather-card" aria-label="Погода">
+            <div class="weather-card__row">
+                <div class="weather-card__main">
+                    <div class="weather-card__icon" id="weather-icon">⛅</div>
+                    <div>
+                        <div id="weather-temp" class="weather-card__temp">—°</div>
+                        <div id="weather-desc" class="weather-card__desc">Определяем погоду…</div>
+                    </div>
+                </div>
+                <div class="weather-card__meta">
+                    <div id="weather-city" class="weather-card__city">—</div>
+                    <div id="weather-wind" class="weather-card__wind">Ветер — м/с</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="composer" aria-label="Добавление задачи">
+            <form id="task-form" class="composer__form" novalidate>
+                <label for="task-input" class="sr-only">Новая задача</label>
+                <input id="task-input" name="task" type="text" class="composer__input" placeholder="Что нужно сделать?" autocomplete="off" maxlength="160" aria-describedby="task-hint">
+                <button type="submit" class="btn btn--primary" aria-label="Добавить задачу">Добавить</button>
+            </form>
+            <p id="task-hint" class="hint">Нажмите Enter, чтобы быстро добавить.</p>
+        </section>
+
+        <section class="list" aria-label="Список задач">
+            <div class="list__summary" aria-live="polite" aria-atomic="true">
+                <span id="counter-total">0</span> всего • <span id="counter-done">0</span> выполнено
+            </div>
+            <div id="empty-state" class="empty">
+                Нет задач. Добавьте первую сверху.
+            </div>
+            <ul id="task-list" class="list__items" role="list"></ul>
+        </section>
+
+        <section class="actions">
+            <button id="clear-all" class="btn btn--ghost" aria-label="Очистить все задачи">Очистить все задачи</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        Сделано с ♥ для продуктивности. <a href="https://" target="_blank" rel="noopener">TaskFlow</a>
+    </footer>
+
+    <script defer src="theme.js"></script>
+    <script defer src="auth.js"></script>
+    <script defer src="nav.js"></script>
+    <script defer src="weather.js"></script>
+    <script defer src="script.js"></script>
+    
+    <noscript>
+        Похоже, у вас отключен JavaScript. Для работы TaskFlow его необходимо включить.
+    </noscript>
+</body>
+</html>
+
+

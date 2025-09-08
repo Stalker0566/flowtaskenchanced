@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>TaskFlow - Вход</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="index.html" class="nav__brand">TaskFlow</a>
+        </div>
+    </nav>
+
+    <main class="app" aria-labelledby="app-title">
+        <h1 id="app-title" class="app__title">Вход в аккаунт</h1>
+
+        <section class="composer" aria-label="Аутентификация">
+            <form id="auth-form" class="composer__form" novalidate style="flex-direction:column; gap:12px;">
+                <div>
+                    <label for="auth-email" class="expense-form__label">Email</label>
+                    <input id="auth-email" type="email" class="composer__input" placeholder="you@example.com" required>
+                </div>
+                <div>
+                    <label for="auth-password" class="expense-form__label">Пароль</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <input id="auth-password" type="password" class="composer__input" placeholder="••••••••" minlength="6" required style="flex:1;">
+                        <button type="button" id="toggle-password" class="btn btn--ghost" aria-label="Показать пароль">Показать</button>
+                    </div>
+                    <div id="password-strength" class="hint">Минимум 6 символов</div>
+                </div>
+                <label style="display:flex; align-items:center; gap:8px;">
+                    <input id="remember-me" type="checkbox"> Запомнить меня (7 дней)
+                </label>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button type="submit" class="btn btn--primary" id="auth-submit">Войти</button>
+                    <button type="button" class="btn btn--ghost" id="toggle-mode">Перейти к регистрации</button>
+                </div>
+                <p id="auth-error" class="error-message" style="display:none;">Ошибка</p>
+            </form>
+            <div style="margin-top:12px;">
+                <button id="forgot-btn" class="btn btn--ghost">Забыли пароль?</button>
+            </div>
+            <form id="recovery-form" class="composer__form" novalidate style="flex-direction:column; gap:10px; display:none; margin-top:10px;">
+                <div>
+                    <label for="recovery-email" class="expense-form__label">Email</label>
+                    <input id="recovery-email" type="email" class="composer__input" placeholder="you@example.com">
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button type="button" id="request-code" class="btn btn--ghost">Получить код</button>
+                    <span id="recovery-hint" class="hint"></span>
+                </div>
+                <div>
+                    <label for="recovery-code" class="expense-form__label">Код</label>
+                    <input id="recovery-code" type="text" class="composer__input" placeholder="6-значный код">
+                </div>
+                <div>
+                    <label for="recovery-newpass" class="expense-form__label">Новый пароль</label>
+                    <input id="recovery-newpass" type="password" class="composer__input" placeholder="Новый пароль">
+                </div>
+                <button type="submit" class="btn btn--primary">Сбросить пароль</button>
+                <p id="recovery-error" class="error-message" style="display:none;">Ошибка</p>
+            </form>
+
+            <form id="verify-form" class="composer__form" novalidate style="flex-direction:column; gap:10px; display:none; margin-top:14px;">
+                <div class="hint">Мы отправили код подтверждения на вашу почту. Введите 5–6‑значный код ниже.</div>
+                <div>
+                    <label for="verify-email" class="expense-form__label">Email</label>
+                    <input id="verify-email" type="email" class="composer__input" readonly>
+                </div>
+                <div>
+                    <label for="verify-code" class="expense-form__label">Код подтверждения</label>
+                    <input id="verify-code" type="text" class="composer__input" placeholder="Напр., 123456" maxlength="6">
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button type="submit" class="btn btn--primary">Подтвердить</button>
+                    <button type="button" id="resend-code" class="btn btn--ghost">Отправить код ещё раз</button>
+                    <span id="verify-hint" class="hint"></span>
+                </div>
+                <p id="verify-error" class="error-message" style="display:none;">Ошибка</p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        Ваша сессия хранится локально в браузере.
+    </footer>
+
+    <script defer src="auth.js"></script>
+    <script defer src="login.js"></script>
+</body>
+</html>
+
+
