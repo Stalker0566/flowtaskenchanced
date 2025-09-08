@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>TaskFlow - Учет расходов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="index.html" class="nav__brand">TaskFlow</a>
+            <div class="nav__links">
+                <a href="index.html" class="nav__link">Задачи</a>
+                <a href="currency.html" class="nav__link">Валюты</a>
+                <a href="expenses.html" class="nav__link nav__link--active">Расходы</a>
+                <a href="login.html" class="nav__link" id="login-link">Войти</a>
+                <span id="user-chip" class="chip" style="display:none;"></span>
+                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Выйти</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+                    <span class="theme-toggle__icon">🌞</span>
+                    <span class="theme-toggle__text">Светлая</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="app" aria-labelledby="app-title">
+        <h1 id="app-title" class="app__title">Учет расходов</h1>
+        
+        <section class="expense-form" aria-label="Добавление расхода">
+            <form id="expense-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="expense-title" class="expense-form__label">Описание</label>
+                        <input id="expense-title" name="title" type="text" class="expense-form__input" placeholder="Например: кофе 3.2€ #утро" maxlength="100" required>
+                        <small class="hint">Можно вводить в свободной форме: сумма, эмодзи, #теги — распознаются автоматически</small>
+                    </div>
+                    
+                    <div class="expense-form__group">
+                        <label for="expense-amount" class="expense-form__label">Сумма</label>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <input id="expense-amount" name="amount" type="number" class="expense-form__input" placeholder="0.00" step="0.01" min="0" required>
+                            <button type="button" id="open-calculator" class="btn btn--ghost" aria-haspopup="dialog" aria-controls="calculator-modal">Калькулятор</button>
+                        </div>
+                    </div>
+                    
+                    <div class="expense-form__group">
+                        <label for="expense-category" class="expense-form__label">Категория</label>
+                        <select id="expense-category" name="category" class="expense-form__select" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="food">🍔 Еда и напитки</option>
+                            <option value="transport">🚗 Транспорт</option>
+                            <option value="shopping">🛍️ Покупки</option>
+                            <option value="entertainment">🎬 Развлечения</option>
+                            <option value="health">🏥 Здоровье</option>
+                            <option value="education">📚 Образование</option>
+                            <option value="utilities">🏠 Коммунальные услуги</option>
+                            <option value="rent">🏢 Аренда/Ипотека</option>
+                            <option value="internet">🌐 Интернет</option>
+                            <option value="phone">📱 Связь</option>
+                            <option value="fitness">🏋️ Фитнес</option>
+                            <option value="travel">✈️ Путешествия</option>
+                            <option value="gifts">🎁 Подарки</option>
+                            <option value="pets">🐾 Питомцы</option>
+                            <option value="Coffee">☕️ Кофе</option>
+                            <option value="snacks">🍫 Перекусы</option>
+                            <option value="beauty">💄 Красота</option>
+                            <option value="taxes">💼 Налоги/Штрафы</option>
+                            <option value="savings">💰 Сбережения</option>
+                            <option value="investments">📈 Инвестиции</option>
+                            <option value="other">📝 Прочее</option>
+                        </select>
+                    </div>
+                    
+                    <div class="expense-form__group">
+                        <label for="expense-date" class="expense-form__label">Дата</label>
+                        <input id="expense-date" name="date" type="date" class="expense-form__date" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary">Добавить расход</button>
+                </div>
+            </form>
+            <div class="quick-templates" aria-label="Быстрые траты">
+                <button class="chip" data-template='{"title":"Кофе","amount":3.00,"category":"Coffee"}'>☕️ Кофе €3</button>
+                <button class="chip" data-template='{"title":"Такси","amount":8.00,"category":"transport"}'>🚕 Такси €8</button>
+                <button class="chip" data-template='{"title":"Перекус","amount":2.50,"category":"snacks"}'>🍫 Перекус €2.5</button>
+                <button class="chip" data-template='{"title":"Супермаркет","amount":15.00,"category":"food"}'>🛒 Еда €15</button>
+            </div>
+        </section>
+
+        <section class="stats" aria-label="Подписки">
+            <div class="stat-card">
+                <div id="subscriptions-total" class="stat-card__value">0 €</div>
+                <div class="stat-card__label">Подписки в месяц</div>
+            </div>
+        </section>
+
+        <section class="expense-form" aria-label="Ежемесячные подписки">
+            <form id="subscription-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="sub-title" class="expense-form__label">Название подписки</label>
+                        <input id="sub-title" name="title" type="text" class="expense-form__input" placeholder="Netflix, iCloud и т.д." maxlength="60" required>
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="sub-amount" class="expense-form__label">Стоимость в месяц</label>
+                        <input id="sub-amount" name="amount" type="number" class="expense-form__input" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Добавить подписку</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="expense-list" aria-label="Список подписок">
+            <div class="expense-list__header">
+                <h2 class="expense-list__title">Мои подписки</h2>
+            </div>
+            <div id="subscriptions-items" class="expense-items">
+                <div class="empty">Подписок пока нет.</div>
+            </div>
+        </section>
+        
+        <section class="stats" aria-label="Статистика расходов">
+            <div class="stat-card">
+                <div id="total-expenses" class="stat-card__value">0 €</div>
+                <div class="stat-card__label">Всего потрачено</div>
+            </div>
+            <div class="stat-card">
+                <div id="monthly-expenses" class="stat-card__value">0 €</div>
+                <div class="stat-card__label">В этом месяце</div>
+            </div>
+            <div class="stat-card">
+                <div id="daily-average" class="stat-card__value">0 €</div>
+                <div class="stat-card__label">В среднем в день</div>
+            </div>
+            <div class="stat-card">
+                <div id="expense-count" class="stat-card__value">0</div>
+                <div class="stat-card__label">Количество трат</div>
+            </div>
+        </section>
+        
+        <section class="expense-list" aria-label="Список расходов">
+            <div class="expense-list__header">
+                <h2 class="expense-list__title">История расходов</h2>
+                <div class="expense-list__filter">
+                    <button class="filter-btn filter-btn--active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="today">Сегодня</button>
+                    <button class="filter-btn" data-filter="week">Неделя</button>
+                    <button class="filter-btn" data-filter="month">Месяц</button>
+                    <select id="tag-filter" class="converter__select">
+                        <option value=""># Все теги</option>
+                    </select>
+                </div>
+            </div>
+            <div id="expense-items" class="expense-items">
+                <div class="empty">
+                    Нет записей о расходах. Добавьте первую сверху.
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-container" aria-label="Календарь расходов">
+            <h2 class="chart-container__title">Тепловая карта (месяц)</h2>
+            <div id="heatmap" class="heatmap"></div>
+        </section>
+
+        <section class="chart-container" aria-label="Тренд расходов">
+            <h2 class="chart-container__title">Тренд 30 дней</h2>
+            <div id="trend" class="chart-placeholder">График появится после добавления расходов</div>
+        </section>
+
+        <section class="chart-container" aria-label="Сравнение месяцев">
+            <h2 class="chart-container__title">Месяц к месяцу</h2>
+            <div id="mom-compare" class="rates"></div>
+        </section>
+        
+        <section class="chart-container" aria-label="Аналитика по категориям">
+            <h2 class="chart-container__title">Расходы по категориям</h2>
+            <div id="category-chart" class="chart-placeholder">
+                График появится после добавления расходов
+            </div>
+        </section>
+
+        <section class="expense-form" aria-label="Прогноз бюджета">
+            <h2 class="chart-container__title">Прогноз на будущие месяцы</h2>
+            <form id="forecast-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="forecast-balance" class="expense-form__label">Текущий баланс (€)</label>
+                        <input id="forecast-balance" type="number" class="expense-form__input" placeholder="0" step="0.01" min="0">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="forecast-income" class="expense-form__label">Доход в месяц (€)</label>
+                        <input id="forecast-income" type="number" class="expense-form__input" placeholder="0" step="0.01" min="0">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="forecast-variable" class="expense-form__label">Переменные траты/мес (€)</label>
+                        <input id="forecast-variable" type="number" class="expense-form__input" placeholder="например, 300" step="0.01" min="0">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="forecast-months" class="expense-form__label">Период (мес)</label>
+                        <input id="forecast-months" type="number" class="expense-form__input" placeholder="1" step="1" min="1" value="3">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Рассчитать</button>
+                </div>
+            </form>
+            <div class="stat-card" style="margin-top:12px;">
+                <div id="forecast-result" class="stat-card__value">—</div>
+                <div class="stat-card__label">Прогнозируемый баланс к концу периода</div>
+            </div>
+            <div class="stat-card" style="margin-top:12px;">
+                <div id="forecast-monthly-free" class="stat-card__value">—</div>
+                <div class="stat-card__label">Остаток в месяц (после расходов и подписок)</div>
+            </div>
+        </section>
+
+        <section class="expense-form" aria-label="Сбережения">
+            <h2 class="chart-container__title">Сбережения</h2>
+            <form id="savings-goal-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="savings-name" class="expense-form__label">Цель</label>
+                        <input id="savings-name" type="text" class="expense-form__input" placeholder="На что копим?" maxlength="60">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="savings-target" class="expense-form__label">Сумма цели (€)</label>
+                        <input id="savings-target" type="number" class="expense-form__input" placeholder="0" step="0.01" min="0">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="savings-deadline" class="expense-form__label">Дедлайн</label>
+                        <input id="savings-deadline" type="date" class="expense-form__date">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Сохранить цель</button>
+                </div>
+            </form>
+
+            <div class="stat-card" style="margin-top:12px; text-align:left;">
+                <div class="stat-card__label" style="margin-bottom:8px;">Прогресс</div>
+                <div class="progress"><div id="savings-progress-bar" class="progress__bar" style="width:0%"></div></div>
+                <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:14px;">
+                    <span id="savings-progress-text">0 / 0 €</span>
+                    <span id="savings-eta">—</span>
+                </div>
+            </div>
+
+            <form id="savings-add-form" class="expense-form__form" style="margin-top:12px;" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="savings-amount" class="expense-form__label">Пополнение (€)</label>
+                        <input id="savings-amount" type="number" class="expense-form__input" placeholder="0" step="0.01" min="0">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="savings-note" class="expense-form__label">Заметка</label>
+                        <input id="savings-note" type="text" class="expense-form__input" placeholder="Источник, комментарий" maxlength="80">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Добавить</button>
+                </div>
+            </form>
+
+            <section class="expense-list" aria-label="Список пополнений" style="margin-top:12px;">
+                <div class="expense-list__header">
+                    <h2 class="expense-list__title">Пополнения</h2>
+                </div>
+                <div id="savings-items" class="expense-items">
+                    <div class="empty">Пополнений пока нет.</div>
+                </div>
+            </section>
+        </section>
+
+        <section class="expense-form" aria-label="Бюджеты по категориям">
+            <h2 class="chart-container__title">Бюджеты по категориям</h2>
+            <form id="budget-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="budget-category" class="expense-form__label">Категория</label>
+                        <select id="budget-category" class="expense-form__select">
+                            <option value="">Выберите категорию</option>
+                        </select>
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="budget-amount" class="expense-form__label">Лимит на месяц (€)</label>
+                        <input id="budget-amount" type="number" class="expense-form__input" placeholder="0" step="0.01" min="0">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Сохранить бюджет</button>
+                </div>
+            </form>
+            <section class="expense-list" aria-label="Текущие бюджеты" style="margin-top:12px;">
+                <div class="expense-list__header">
+                    <h2 class="expense-list__title">Бюджеты</h2>
+                </div>
+                <div id="budgets-items" class="expense-items">
+                    <div class="empty">Бюджеты не заданы.</div>
+                </div>
+            </section>
+        </section>
+
+        <section class="expense-form" aria-label="Свои категории">
+            <h2 class="chart-container__title">Свои категории</h2>
+            <form id="custom-cat-form" class="expense-form__form" novalidate>
+                <div class="expense-form__grid">
+                    <div class="expense-form__group">
+                        <label for="custom-cat-name" class="expense-form__label">Название</label>
+                        <input id="custom-cat-name" type="text" class="expense-form__input" placeholder="Напр., Авто" maxlength="20">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="custom-cat-emoji" class="expense-form__label">Эмодзи</label>
+                        <input id="custom-cat-emoji" type="text" class="expense-form__input" placeholder="🚘" maxlength="2">
+                    </div>
+                    <div class="expense-form__group">
+                        <label for="custom-cat-color" class="expense-form__label">Цвет</label>
+                        <input id="custom-cat-color" type="color" class="expense-form__input" value="#3b82f6">
+                    </div>
+                    <button type="submit" class="btn btn--primary">Добавить категорию</button>
+                </div>
+            </form>
+            <div id="custom-cats-list" class="rates" style="margin-top:12px;">
+                <h3 class="rates__title">Мои категории</h3>
+                <div class="rates__list" id="custom-cats-items"></div>
+            </div>
+        </section>
+
+        <section class="chart-container" aria-label="Дашборд">
+            <h2 class="chart-container__title">Сводка: Неделя и Месяц</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div id="week-total" class="stat-card__value">0 €</div>
+                    <div class="stat-card__label">За последние 7 дней</div>
+                </div>
+                <div class="stat-card">
+                    <div id="month-total" class="stat-card__value">0 €</div>
+                    <div class="stat-card__label">За текущий месяц</div>
+                </div>
+                <div class="stat-card">
+                    <div id="avg-check" class="stat-card__value">0 €</div>
+                    <div class="stat-card__label">Средний чек</div>
+                </div>
+            </div>
+            <div class="rates">
+                <h3 class="rates__title">Топ категорий (месяц)</h3>
+                <div class="rates__list" id="top-cats"></div>
+            </div>
+        </section>
+        
+        <section class="actions">
+            <button id="clear-all-expenses" class="btn btn--ghost">Очистить все расходы</button>
+            <button id="export-expenses" class="btn btn--ghost">Экспорт в CSV</button>
+            <button id="export-expenses-excel" class="btn btn--ghost">Экспорт в Excel</button>
+        </section>
+    </main>
+
+    <!-- Calculator Modal -->
+    <div id="calculator-modal" class="calc" role="dialog" aria-modal="true" aria-labelledby="calc-title" style="display:none;">
+        <div class="calc__overlay"></div>
+        <div class="calc__panel" role="document">
+            <div class="calc__header">
+                <h2 id="calc-title" class="calc__title">Калькулятор</h2>
+                <button id="close-calculator" class="btn btn--ghost">Закрыть</button>
+            </div>
+            <div class="calc__display" id="calc-display">0</div>
+            <div class="calc__grid">
+                <button class="calc__btn calc__btn--fn" data-act="clear">AC</button>
+                <button class="calc__btn calc__btn--fn" data-act="sign">±</button>
+                <button class="calc__btn calc__btn--fn" data-act="percent">%</button>
+                <button class="calc__btn calc__btn--op" data-op="/">÷</button>
+
+                <button class="calc__btn" data-num="7">7</button>
+                <button class="calc__btn" data-num="8">8</button>
+                <button class="calc__btn" data-num="9">9</button>
+                <button class="calc__btn calc__btn--op" data-op="*">×</button>
+
+                <button class="calc__btn" data-num="4">4</button>
+                <button class="calc__btn" data-num="5">5</button>
+                <button class="calc__btn" data-num="6">6</button>
+                <button class="calc__btn calc__btn--op" data-op="-">−</button>
+
+                <button class="calc__btn" data-num="1">1</button>
+                <button class="calc__btn" data-num="2">2</button>
+                <button class="calc__btn" data-num="3">3</button>
+                <button class="calc__btn calc__btn--op" data-op="+">+</button>
+
+                <button class="calc__btn calc__btn--zero" data-num="0">0</button>
+                <button class="calc__btn" data-dot=",">,</button>
+                <button class="calc__btn calc__btn--op" data-act="equals">=</button>
+            </div>
+            <div class="calc__actions">
+                <button id="calc-apply" class="btn btn--primary">Вставить сумму</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Управляйте финансами осознанно. Экспортируйте CSV и анализируйте траты.
+    </footer>
+
+    <script defer src="theme.js"></script>
+    <script defer src="auth.js"></script>
+    <script defer src="nav.js"></script>
+    <script defer src="expenses.js"></script>
+    
+    <noscript>
+        Похоже, у вас отключен JavaScript. Для работы учета расходов его необходимо включить.
+    </noscript>
+</body>
+</html>
