@@ -640,6 +640,92 @@ html[data-theme="dark"] .calc__btn--fn { background: #1f2937; color: #e5e7eb; }
 .calc__btn--zero { grid-column: span 2; }
 .calc__actions { padding: 12px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; }
 
+/* Mobile Calculator Optimizations */
+@media (max-width: 768px) {
+  .calc__panel {
+    max-width: 100%;
+    margin: 2vh 16px;
+    border-radius: 12px;
+  }
+  
+  .calc__display {
+    font-size: 28px;
+    padding: 14px;
+  }
+  
+  .calc__grid {
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .calc__btn {
+    height: 48px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calc__panel {
+    margin: 1vh 8px;
+    border-radius: 10px;
+  }
+  
+  .calc__header {
+    padding: 10px 12px;
+  }
+  
+  .calc__title {
+    font-size: 15px;
+  }
+  
+  .calc__display {
+    font-size: 24px;
+    padding: 12px;
+  }
+  
+  .calc__grid {
+    gap: 6px;
+    padding: 8px;
+  }
+  
+  .calc__btn {
+    height: 44px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  
+  .calc__actions {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .calc__panel {
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .calc__display {
+    font-size: 22px;
+    padding: 16px;
+  }
+  
+  .calc__grid {
+    flex: 1;
+    gap: 4px;
+    padding: 8px;
+  }
+  
+  .calc__btn {
+    height: 50px;
+    font-size: 16px;
+  }
+}
+
 .error-message {
   background: #fef2f2;
   border: 1px solid #fecaca;
@@ -672,38 +758,284 @@ html[data-theme="dark"] .calc__btn--fn { background: #1f2937; color: #e5e7eb; }
   background: var(--muted);
 }
 
+/* ===== MOBILE OPTIMIZATIONS ===== */
+
+/* Large Mobile / Small Tablet (768px and down) */
 @media (max-width: 768px) {
+  /* Navigation improvements */
+  .nav__container {
+    padding: 0 12px;
+  }
+  
   .nav__links {
-    gap: 12px;
+    gap: 8px;
   }
   
   .nav__link {
-    padding: 6px 8px;
+    padding: 8px 10px;
     font-size: 14px;
+    min-height: 44px; /* Better touch target */
+    display: flex;
+    align-items: center;
   }
   
+  .nav__brand {
+    font-size: 18px;
+  }
+  
+  /* App container */
+  .app {
+    padding: 16px 12px 32px;
+  }
+  
+  .app__title {
+    font-size: 24px;
+    margin: 8px 0 16px;
+  }
+  
+  /* Converter improvements */
   .converter {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
+    padding: 16px;
   }
   
   .converter__swap {
     order: 3;
     align-self: center;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+  
+  .converter__input,
+  .converter__select {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 14px 16px;
+  }
+  
+  /* Expense form improvements */
+  .expense-form {
+    padding: 16px;
   }
   
   .expense-form__grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
   
+  .expense-form__input,
+  .expense-form__select,
+  .expense-form__date {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 14px 16px;
+    min-height: 48px; /* Better touch target */
+  }
+  
+  /* Expense items */
   .expense-item {
     grid-template-columns: auto 1fr auto;
     gap: 12px;
+    padding: 14px 16px;
   }
   
   .expense-item__details {
     min-width: 0;
+  }
+  
+  .expense-item__title {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .expense-item__date {
+    font-size: 12px;
+  }
+  
+  .expense-item__amount {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  .expense-item__delete {
+    padding: 8px 10px;
+    min-height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Stats improvements */
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .stat-card {
+    padding: 16px 12px;
+  }
+  
+  .stat-card__value {
+    font-size: 20px;
+  }
+  
+  .stat-card__label {
+    font-size: 13px;
+  }
+  
+  /* Rates improvements */
+  .rates__list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .rate {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  
+  /* Chart improvements */
+  .chart-container {
+    padding: 16px;
+  }
+  
+  /* Weather card */
+  .weather-card {
+    padding: 16px;
+  }
+  
+  .weather-card__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .weather-card__main {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .weather-card__temp {
+    font-size: 20px;
+  }
+  
+  .weather-card__icon {
+    font-size: 28px;
+  }
+}
+
+/* Small Mobile (480px and down) */
+@media (max-width: 480px) {
+  /* App container */
+  .app { 
+    padding: 12px 8px 24px; 
+  }
+  
+  .app__title { 
+    font-size: 22px; 
+    margin: 6px 0 12px;
+  }
+  
+  /* Navigation */
+  .nav__container {
+    padding: 0 8px;
+    height: 56px; /* Slightly smaller nav */
+  }
+  
+  .nav__brand {
+    font-size: 16px;
+  }
+  
+  .nav__links {
+    gap: 4px;
+  }
+  
+  .nav__link {
+    padding: 6px 8px;
+    font-size: 13px;
+    min-height: 40px;
+  }
+  
+  /* Task composer */
+  .composer {
+    padding: 12px;
+  }
+  
+  .composer__form { 
+    gap: 8px; 
+    flex-direction: column;
+  }
+  
+  .composer__input {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 12px 14px;
+    min-height: 48px;
+  }
+  
+  .btn { 
+    padding: 12px 16px; 
+    font-size: 14px;
+    min-height: 48px;
+  }
+  
+  /* Tasks */
+  .task { 
+    grid-template-columns: auto 1fr auto; 
+    padding: 12px; 
+    gap: 10px;
+  }
+  
+  .task__title { 
+    font-size: 14px; 
+    line-height: 1.4;
+  }
+  
+  .task__checkbox {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .task__delete {
+    padding: 6px 8px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+  
+  /* Converter */
+  .converter {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .converter__input,
+  .converter__select {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  
+  .converter__swap {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+  
+  /* Expense form */
+  .expense-form {
+    padding: 12px;
+  }
+  
+  .expense-form__input,
+  .expense-form__select,
+  .expense-form__date {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  
+  /* Expense items */
+  .expense-item {
+    padding: 12px;
+    gap: 10px;
   }
   
   .expense-item__title {
@@ -714,54 +1046,126 @@ html[data-theme="dark"] .calc__btn--fn { background: #1f2937; color: #e5e7eb; }
     font-size: 14px;
   }
   
+  .expense-item__delete {
+    padding: 6px 8px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+  
+  /* Stats - single column on very small screens */
   .stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
   
   .stat-card {
-    padding: 16px;
+    padding: 12px;
   }
   
   .stat-card__value {
-    font-size: 20px;
+    font-size: 18px;
+  }
+  
+  .stat-card__label {
+    font-size: 12px;
+  }
+  
+  /* Chart container */
+  .chart-container {
+    padding: 12px;
+  }
+  
+  /* Weather card */
+  .weather-card {
+    padding: 12px;
+  }
+  
+  .weather-card__temp {
+    font-size: 18px;
+  }
+  
+  .weather-card__icon {
+    font-size: 24px;
+  }
+  
+  .weather-card__desc {
+    font-size: 12px;
+  }
+  
+  .weather-card__city {
+    font-size: 14px;
+  }
+  
+  .weather-card__wind {
+    font-size: 12px;
+  }
+  
+  /* Rates */
+  .rate {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  /* Quick templates */
+  .quick-templates {
+    gap: 6px;
+  }
+  
+  .tag-chip {
+    font-size: 10px;
+    padding: 2px 6px;
   }
 }
 
-@media (max-width: 480px) {
-  .app { padding: 20px 12px 40px; }
-  .composer__form { gap: 8px; }
-  .btn { padding: 10px 12px; font-size: 13px; }
-  .task { grid-template-columns: auto 1fr auto; padding: 10px; }
-  .task__title { font-size: 14px; }
-  .app__title { font-size: 24px; }
-  
-  .nav__container {
-    padding: 0 12px;
+/* Extra Small Mobile (360px and down) */
+@media (max-width: 360px) {
+  .app {
+    padding: 8px 6px 20px;
   }
   
-  .nav__links {
-    gap: 8px;
+  .nav__container {
+    padding: 0 6px;
+  }
+  
+  .nav__brand {
+    font-size: 15px;
   }
   
   .nav__link {
     padding: 4px 6px;
-    font-size: 13px;
+    font-size: 12px;
+    min-height: 36px;
   }
   
-  .converter {
-    padding: 16px;
+  .app__title {
+    font-size: 20px;
   }
   
-  .expense-form {
-    padding: 16px;
+  .composer,
+  .expense-form,
+  .converter,
+  .chart-container,
+  .weather-card {
+    padding: 10px;
   }
   
+  .task,
   .expense-item {
-    padding: 12px 16px;
+    padding: 10px;
   }
   
-  .stats {
-    grid-template-columns: 1fr;
+  .stat-card {
+    padding: 10px;
+  }
+  
+  .stat-card__value {
+    font-size: 16px;
+  }
+  
+  .btn {
+    padding: 10px 12px;
+    font-size: 13px;
+    min-height: 44px;
   }
 }
 
@@ -775,6 +1179,23 @@ html[data-theme="dark"] .calc__btn--fn { background: #1f2937; color: #e5e7eb; }
 .footer a { color: var(--primary); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
+/* Mobile Footer */
+@media (max-width: 768px) {
+  .footer {
+    margin-top: 32px;
+    padding: 20px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    margin-top: 24px;
+    padding: 16px 8px;
+    font-size: 13px;
+  }
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -785,8 +1206,204 @@ html[data-theme="dark"] .calc__btn--fn { background: #1f2937; color: #e5e7eb; }
   background: var(--card);
   color: var(--text);
   cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px; /* Better touch target */
+}
+.theme-toggle:hover {
+  background: var(--bg);
+  border-color: var(--primary);
 }
 .theme-toggle__icon { font-size: 16px; }
+
+/* Mobile Theme Toggle */
+@media (max-width: 768px) {
+  .theme-toggle {
+    padding: 6px 8px;
+    min-height: 40px;
+  }
+  
+  .theme-toggle__icon {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle {
+    padding: 4px 6px;
+    min-height: 36px;
+    gap: 6px;
+  }
+  
+  .theme-toggle__icon {
+    font-size: 13px;
+  }
+}
+
+/* Additional Mobile Optimizations for Expenses Page */
+@media (max-width: 768px) {
+  /* Subscription section */
+  .subscription-item {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  
+  .subscription-item__details {
+    min-width: 0;
+  }
+  
+  .subscription-item__title {
+    font-size: 14px;
+  }
+  
+  .subscription-item__amount {
+    font-size: 15px;
+  }
+  
+  .subscription-item__delete {
+    padding: 6px 8px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+  
+  /* Forecast section */
+  .forecast-card {
+    padding: 16px;
+  }
+  
+  .forecast-item {
+    padding: 12px;
+  }
+  
+  .forecast-item__amount {
+    font-size: 16px;
+  }
+  
+  /* Savings section */
+  .savings-card {
+    padding: 16px;
+  }
+  
+  .savings-item {
+    padding: 12px;
+  }
+  
+  .savings-item__amount {
+    font-size: 16px;
+  }
+  
+  /* Budget section */
+  .budget-card {
+    padding: 16px;
+  }
+  
+  .budget-item {
+    padding: 12px;
+  }
+  
+  .budget-progress {
+    height: 8px;
+  }
+  
+  /* Custom categories */
+  .custom-category-item {
+    padding: 12px;
+  }
+  
+  .custom-category-item__name {
+    font-size: 14px;
+  }
+  
+  .custom-category-item__delete {
+    padding: 6px 8px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+  
+  /* Dashboard */
+  .dashboard-card {
+    padding: 16px;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .dashboard-stat {
+    padding: 12px;
+  }
+  
+  .dashboard-stat__value {
+    font-size: 18px;
+  }
+  
+  .dashboard-stat__label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Single column layout for very small screens */
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .subscription-item,
+  .forecast-item,
+  .savings-item,
+  .budget-item,
+  .custom-category-item {
+    padding: 10px;
+  }
+  
+  .subscription-item__title,
+  .forecast-item__label,
+  .savings-item__label,
+  .budget-item__label,
+  .custom-category-item__name {
+    font-size: 13px;
+  }
+  
+  .subscription-item__amount,
+  .forecast-item__amount,
+  .savings-item__amount,
+  .budget-item__amount {
+    font-size: 14px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets for mobile devices */
+  .btn,
+  .nav__link,
+  .task__delete,
+  .expense-item__delete,
+  .subscription-item__delete,
+  .custom-category-item__delete {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .task__checkbox {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .converter__swap {
+    width: 56px;
+    height: 56px;
+  }
+  
+  /* Better spacing for touch */
+  .list__items {
+    gap: 12px;
+  }
+  
+  .expense-list .expense-items {
+    gap: 8px;
+  }
+}
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(6px); }
