@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Website Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 TaskFlow Website Test</h1>
+    
+    <div class="test-section">
+        <h2>📁 File Structure Test</h2>
+        <div id="file-structure-results"></div>
+        <button onclick="testFileStructure()">Test File Structure</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🌐 Server Connection Test</h2>
+        <div id="server-results"></div>
+        <button onclick="testServerConnection()">Test Server Connection</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🗄️ Database Test</h2>
+        <div id="database-results"></div>
+        <button onclick="testDatabase()">Test Database</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎨 CSS Files Test</h2>
+        <div id="css-results"></div>
+        <button onclick="testCSSFiles()">Test CSS Files</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>⚡ JavaScript Test</h2>
+        <div id="js-results"></div>
+        <button onclick="testJavaScript()">Test JavaScript</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>📊 Overall Status</h2>
+        <div id="overall-status"></div>
+        <button onclick="runAllTests()">Run All Tests</button>
+    </div>
+
+    <script>
+        let testResults = {
+            fileStructure: false,
+            serverConnection: false,
+            database: false,
+            cssFiles: false,
+            javascript: false
+        };
+
+        function addResult(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = message;
+            container.appendChild(div);
+        }
+
+        function clearResults(containerId) {
+            document.getElementById(containerId).innerHTML = '';
+        }
+
+        async function testFileStructure() {
+            clearResults('file-structure-results');
+            addResult('file-structure-results', 'Testing file structure...', 'info');
+            
+            const requiredFiles = [
+                'index.html',
+                'css/styles.css',
+                'css/components.css',
+                'css/enhanced-tasks.css',
+                'js/enhanced-tasks.js',
+                'js/script.js',
+                'php/tasks-api.php',
+                'php/config.php'
+            ];
+            
+            let allFilesExist = true;
+            
+            for (const file of requiredFiles) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    if (response.ok) {
+                        addResult('file-structure-results', `✅ ${file} - Found`, 'success');
+                    } else {
+                        addResult('file-structure-results', `❌ ${file} - Not found (${response.status})`, 'error');
+                        allFilesExist = false;
+                    }
+                } catch (error) {
+                    addResult('file-structure-results', `❌ ${file} - Error: ${error.message}`, 'error');
+                    allFilesExist = false;
+                }
+            }
+            
+            testResults.fileStructure = allFilesExist;
+            updateOverallStatus();
+        }
+
+        async function testServerConnection() {
+            clearResults('server-results');
+            addResult('server-results', 'Testing server connection...', 'info');
+            
+            try {
+                const response = await fetch('php/tasks-api.php', { method: 'GET' });
+                if (response.ok) {
+                    addResult('server-results', '✅ Server is running and responding', 'success');
+                    testResults.serverConnection = true;
+                } else {
+                    addResult('server-results', `❌ Server error: ${response.status}`, 'error');
+                    testResults.serverConnection = false;
+                }
+            } catch (error) {
+                addResult('server-results', `❌ Server connection failed: ${error.message}`, 'error');
+                testResults.serverConnection = false;
+            }
+            
+            updateOverallStatus();
+        }
+
+        async function testDatabase() {
+            clearResults('database-results');
+            addResult('database-results', 'Testing database connection...', 'info');
+            
+            try {
+                const response = await fetch('php/tasks-api.php', { method: 'GET' });
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        addResult('database-results', '✅ Database connection successful', 'success');
+                        addResult('database-results', `📊 Found ${result.tasks ? result.tasks.length : 0} tasks`, 'info');
+                        testResults.database = true;
+                    } else {
+                        addResult('database-results', `❌ Database error: ${result.message}`, 'error');
+                        testResults.database = false;
+                    }
+                } else {
+                    addResult('database-results', `❌ HTTP error: ${response.status}`, 'error');
+                    testResults.database = false;
+                }
+            } catch (error) {
+                addResult('database-results', `❌ Database test failed: ${error.message}`, 'error');
+                testResults.database = false;
+            }
+            
+            updateOverallStatus();
+        }
+
+        async function testCSSFiles() {
+            clearResults('css-results');
+            addResult('css-results', 'Testing CSS files...', 'info');
+            
+            const cssFiles = [
+                'css/styles.css',
+                'css/components.css',
+                'css/enhanced-tasks.css'
+            ];
+            
+            let allCSSValid = true;
+            
+            for (const file of cssFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        const css = await response.text();
+                        if (css.trim().length > 0) {
+                            addResult('css-results', `✅ ${file} - Valid CSS`, 'success');
+                        } else {
+                            addResult('css-results', `⚠️ ${file} - Empty file`, 'warning');
+                        }
+                    } else {
+                        addResult('css-results', `❌ ${file} - Not found`, 'error');
+                        allCSSValid = false;
+                    }
+                } catch (error) {
+                    addResult('css-results', `❌ ${file} - Error: ${error.message}`, 'error');
+                    allCSSValid = false;
+                }
+            }
+            
+            testResults.cssFiles = allCSSValid;
+            updateOverallStatus();
+        }
+
+        async function testJavaScript() {
+            clearResults('js-results');
+            addResult('js-results', 'Testing JavaScript files...', 'info');
+            
+            const jsFiles = [
+                'js/enhanced-tasks.js',
+                'js/script.js'
+            ];
+            
+            let allJSValid = true;
+            
+            for (const file of jsFiles) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        const js = await response.text();
+                        if (js.trim().length > 0) {
+                            addResult('js-results', `✅ ${file} - Valid JavaScript`, 'success');
+                        } else {
+                            addResult('js-results', `⚠️ ${file} - Empty file`, 'warning');
+                        }
+                    } else {
+                        addResult('js-results', `❌ ${file} - Not found`, 'error');
+                        allJSValid = false;
+                    }
+                } catch (error) {
+                    addResult('js-results', `❌ ${file} - Error: ${error.message}`, 'error');
+                    allJSValid = false;
+                }
+            }
+            
+            testResults.javascript = allJSValid;
+            updateOverallStatus();
+        }
+
+        function updateOverallStatus() {
+            const container = document.getElementById('overall-status');
+            container.innerHTML = '';
+            
+            const totalTests = Object.keys(testResults).length;
+            const passedTests = Object.values(testResults).filter(result => result === true).length;
+            const percentage = Math.round((passedTests / totalTests) * 100);
+            
+            let statusClass = 'error';
+            let statusIcon = '❌';
+            let statusText = 'Website has issues';
+            
+            if (percentage === 100) {
+                statusClass = 'success';
+                statusIcon = '✅';
+                statusText = 'Website is fully functional';
+            } else if (percentage >= 80) {
+                statusClass = 'warning';
+                statusIcon = '⚠️';
+                statusText = 'Website has minor issues';
+            }
+            
+            addResult('overall-status', `${statusIcon} ${statusText}`, statusClass);
+            addResult('overall-status', `📊 ${passedTests}/${totalTests} tests passed (${percentage}%)`, 'info');
+            
+            // Detailed status
+            Object.entries(testResults).forEach(([test, result]) => {
+                const icon = result ? '✅' : '❌';
+                const testName = test.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                addResult('overall-status', `${icon} ${testName}`, result ? 'success' : 'error');
+            });
+        }
+
+        async function runAllTests() {
+            addResult('overall-status', '🚀 Running all tests...', 'info');
+            
+            await testFileStructure();
+            await testServerConnection();
+            await testDatabase();
+            await testCSSFiles();
+            await testJavaScript();
+            
+            addResult('overall-status', '✨ All tests completed!', 'info');
+        }
+
+        // Run initial test on page load
+        window.addEventListener('load', () => {
+            addResult('overall-status', '🔧 TaskFlow Website Test Suite Ready', 'info');
+            addResult('overall-status', 'Click "Run All Tests" to start testing', 'info');
+        });
+    </script>
+</body>
+</html>

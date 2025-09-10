@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Test Task Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 TaskFlow - Test Task Creation</h1>
+    
+    <div class="test-container">
+        <h2>Test Task Form</h2>
+        <form id="test-task-form">
+            <div class="form-group">
+                <label for="task-title">Task Title *</label>
+                <input type="text" id="task-title" name="title" required placeholder="Enter task title">
+            </div>
+            
+            <div class="form-group">
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="description" rows="3" placeholder="Enter task description"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="task-priority">Priority</label>
+                <select id="task-priority" name="priority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="task-category">Category</label>
+                <select id="task-category" name="category">
+                    <option value="general">General</option>
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="health">Health</option>
+                    <option value="learning">Learning</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="task-tags">Tags (comma separated)</label>
+                <input type="text" id="task-tags" name="tags" placeholder="urgent, important, meeting">
+            </div>
+            
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Current Tasks</h2>
+        <div id="current-tasks"></div>
+        <button onclick="loadTasks()">Refresh Tasks</button>
+    </div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const container = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            container.appendChild(div);
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+
+        async function loadTasks() {
+            try {
+                const response = await fetch('php/tasks-api.php');
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        const tasksContainer = document.getElementById('current-tasks');
+                        tasksContainer.innerHTML = '';
+                        
+                        if (result.tasks && result.tasks.length > 0) {
+                            result.tasks.forEach(task => {
+                                const taskDiv = document.createElement('div');
+                                taskDiv.className = 'result info';
+                                taskDiv.innerHTML = `
+                                    <strong>${task.title}</strong><br>
+                                    Priority: ${task.priority} | Category: ${task.category}<br>
+                                    ${task.description ? `Description: ${task.description}<br>` : ''}
+                                    ${task.tags && task.tags.length > 0 ? `Tags: ${task.tags.join(', ')}<br>` : ''}
+                                    Status: ${task.done ? 'Completed' : 'Pending'}
+                                `;
+                                tasksContainer.appendChild(taskDiv);
+                            });
+                        } else {
+                            tasksContainer.innerHTML = '<div class="result info">No tasks found</div>';
+                        }
+                    } else {
+                        addResult(`Error loading tasks: ${result.message}`, 'error');
+                    }
+                } else {
+                    addResult(`HTTP error: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                addResult(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        document.getElementById('test-task-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearResults();
+            
+            const formData = new FormData(e.target);
+            const taskData = {
+                action: 'add',
+                title: formData.get('title'),
+                description: formData.get('description'),
+                priority: formData.get('priority'),
+                category: formData.get('category'),
+                due_date: formData.get('due_date'),
+                tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()).filter(tag => tag) : []
+            };
+            
+            addResult('Sending task data...', 'info');
+            addResult(`Data: ${JSON.stringify(taskData, null, 2)}`, 'info');
+            
+            try {
+                const response = await fetch('php/tasks-api.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(taskData)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        addResult('✅ Task added successfully!', 'success');
+                        addResult(`Task ID: ${result.task ? result.task.id : 'N/A'}`, 'info');
+                        e.target.reset();
+                        loadTasks(); // Refresh the tasks list
+                    } else {
+                        addResult(`❌ Failed to add task: ${result.message}`, 'error');
+                    }
+                } else {
+                    addResult(`❌ HTTP error: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Error: ${error.message}`, 'error');
+            }
+        });
+
+        // Load tasks on page load
+        window.addEventListener('load', () => {
+            addResult('🚀 Test page loaded. Try adding a task!', 'info');
+            loadTasks();
+        });
+    </script>
+</body>
+</html>

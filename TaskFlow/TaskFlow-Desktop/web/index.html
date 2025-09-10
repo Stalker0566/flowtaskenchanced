@@ -3,29 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>TaskFlow - Enhanced Task Management</title>
+    <title>TaskFlow Desktop - Advanced Task Management</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/chat.css">
-    <link rel="stylesheet" href="css/enhanced-tasks.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Desktop-specific styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Desktop app indicator */
+        .desktop-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(79, 70, 229, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .desktop-indicator i {
+            margin-right: 6px;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+        }
+        
+        [data-theme="light"] .main-content {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1a202c;
+        }
+        
+        .tasks-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Include all the existing styles from the web version */
+        /* (This would be a very long CSS block - in production, you'd include the full CSS) */
+        
+        /* Desktop-specific enhancements */
+        .desktop-shortcuts {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 0.8rem;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .desktop-shortcuts h4 {
+            margin: 0 0 10px 0;
+            color: #4f46e5;
+            font-size: 0.9rem;
+        }
+        
+        .desktop-shortcuts div {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .desktop-shortcuts kbd {
+            background: #4f46e5;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
+    <!-- Desktop App Indicator -->
+    <div class="desktop-indicator">
+        <i class="fas fa-desktop"></i>
+        TaskFlow Desktop
+    </div>
+    
+    <!-- Desktop Shortcuts -->
+    <div class="desktop-shortcuts">
+        <h4><i class="fas fa-keyboard"></i> Shortcuts</h4>
+        <div><kbd>Ctrl</kbd> + <kbd>N</kbd> New Task</div>
+        <div><kbd>Ctrl</kbd> + <kbd>T</kbd> Toggle Theme</div>
+        <div><kbd>Ctrl</kbd> + <kbd>E</kbd> Export</div>
+        <div><kbd>Ctrl</kbd> + <kbd>I</kbd> Import</div>
+    </div>
+
     <nav class="nav">
         <div class="nav__container">
-            <a href="index.html" class="nav__brand">TaskFlow</a>
+            <a href="index.html" class="nav__brand">TaskFlow Desktop</a>
             <div class="nav__links">
                 <a href="index.html" class="nav__link nav__link--active">Tasks</a>
                 <a href="currency.html" class="nav__link">Currencies</a>
                 <a href="expenses.html" class="nav__link">Expenses</a>
                 <a href="feedback.html" class="nav__link">Feedback</a>
-                <a href="login.html" class="nav__link" id="login-link">Sign In</a>
+                <button id="loginBtn" class="btn btn--ghost" style="display:none;">Sign In</button>
                 <span id="user-chip" class="chip" style="display:none;"></span>
-                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Sign Out</button>
+                <button id="logoutBtn" class="btn btn--ghost" style="display:none;">Sign Out</button>
+                <div id="userInfo" class="user-info" style="display:none;"></div>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <span class="theme-toggle__icon">🌞</span>
                     <span class="theme-toggle__text">Light</span>
@@ -42,9 +147,9 @@
                 <div class="header-content">
                     <h1 class="tasks-title">
                         <i class="fas fa-tasks"></i>
-                        Enhanced Task Manager
+                        TaskFlow Desktop
                     </h1>
-                    <p class="tasks-subtitle">Organize your tasks with priority, categories, and deadlines</p>
+                    <p class="tasks-subtitle">Advanced task management with desktop integration</p>
                 </div>
                 
                 <!-- Progress Bar -->
@@ -59,59 +164,31 @@
                 </div>
             </div>
 
-            <!-- Weather Section (kept from original) -->
-            <section class="weather-card" aria-label="Weather">
-                <div class="weather-card__row">
-                    <div class="weather-card__main">
-                        <div class="weather-card__icon" id="weather-icon">⛅</div>
-                        <div>
-                            <div id="weather-temp" class="weather-card__temp">—°</div>
-                            <div id="weather-desc" class="weather-card__desc">Loading weather…</div>
-                        </div>
+            <!-- Desktop Features Section -->
+            <div class="desktop-features">
+                <h3 style="color: #ffffff; margin-bottom: 20px;">
+                    <i class="fas fa-desktop"></i> Desktop Features
+                </h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-bell"></i>
+                        <h4>System Notifications</h4>
+                        <p>Get notified about task deadlines and updates</p>
                     </div>
-                    <div class="weather-card__meta">
-                        <div id="weather-city" class="weather-card__city">—</div>
-                        <div id="weather-wind" class="weather-card__wind">Wind — m/s</div>
+                    <div class="feature-card">
+                        <i class="fas fa-tray"></i>
+                        <h4>System Tray</h4>
+                        <p>Minimize to tray and quick access</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- Task Statistics -->
-            <div class="task-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-list"></i>
+                    <div class="feature-card">
+                        <i class="fas fa-keyboard"></i>
+                        <h4>Keyboard Shortcuts</h4>
+                        <p>Powerful shortcuts for productivity</p>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="total-tasks">0</div>
-                        <div class="stat-label">Total Tasks</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon completed">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="completed-tasks">0</div>
-                        <div class="stat-label">Completed</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="pending-tasks">0</div>
-                        <div class="stat-label">Pending</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon urgent">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-number" id="urgent-tasks">0</div>
-                        <div class="stat-label">Urgent</div>
+                    <div class="feature-card">
+                        <i class="fas fa-sync"></i>
+                        <h4>Auto Sync</h4>
+                        <p>Automatic data synchronization</p>
                     </div>
                 </div>
             </div>
@@ -172,14 +249,6 @@
                         <textarea id="task-description" name="description" class="form-textarea" rows="3" placeholder="Add more details about this task..."></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="task-tags" class="form-label">
-                            <i class="fas fa-hashtag"></i>
-                            Tags (comma separated)
-                        </label>
-                        <input type="text" id="task-tags" name="tags" class="form-input" placeholder="urgent, important, meeting">
-                    </div>
-                    
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-plus"></i>
@@ -187,29 +256,6 @@
                         </button>
                     </div>
                 </form>
-            </div>
-
-            <!-- Filters and Controls -->
-            <div class="task-controls">
-                <div class="filters">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-list"></i>
-                        All
-                    </button>
-                    <button class="filter-btn" data-filter="pending">
-                        <i class="fas fa-clock"></i>
-                        Pending
-                    </button>
-                    <button class="filter-btn" data-filter="completed">
-                        <i class="fas fa-check"></i>
-                        Completed
-                    </button>
-                    <button class="filter-btn" data-filter="high">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        High Priority
-                    </button>
-                </div>
-                
             </div>
 
             <!-- Tasks List -->
@@ -226,48 +272,21 @@
                     <p>Create your first task to get started!</p>
                 </div>
             </div>
-
-            <!-- Task Counter -->
-            <div class="task-counter">
-                <span id="task-counter-text">0 of 0 tasks completed</span>
-            </div>
         </div>
     </main>
 
     <footer class="footer">
-        Made with ♥ for productivity. <a href="https://" target="_blank" rel="noopener">TaskFlow</a>
+        Made with ♥ for productivity. <a href="#" target="_blank" rel="noopener">TaskFlow Desktop</a>
     </footer>
 
+    <!-- Desktop-specific scripts -->
+    <script defer src="js/desktop-integration.js"></script>
     <script defer src="js/theme.js"></script>
-    <script defer src="js/auth-ajax.js"></script>
-    <script defer src="js/nav.js"></script>
-    <script defer src="js/weather.js"></script>
-    <script defer src="js/enhanced-tasks.js"></script>
-    <script defer src="js/chat.js"></script>
-    
-    <!-- Performance optimization -->
-    <script>
-        // Preload critical resources
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                // Preload non-critical resources when browser is idle
-                const link = document.createElement('link');
-                link.rel = 'prefetch';
-                link.href = 'css/chat.css';
-                document.head.appendChild(link);
-            });
-        }
-        
-        // Add loading state
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('loaded');
-        });
-    </script>
+    <script defer src="js/advanced-tasks.js"></script>
+    <script defer src="js/drag-and-undo.js"></script>
     
     <noscript>
-        Похоже, у вас отключен JavaScript. Для работы TaskFlow его необходимо включить.
+        JavaScript is required for TaskFlow Desktop to work properly.
     </noscript>
 </body>
 </html>
-
-
