@@ -1,87 +1,90 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>TaskFlow - Учет расходов</title>
+    <title>TaskFlow - Expense Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/chat.css">
 </head>
 <body>
     <nav class="nav">
         <div class="nav__container">
             <a href="index.html" class="nav__brand">TaskFlow</a>
             <div class="nav__links">
-                <a href="index.html" class="nav__link">Задачи</a>
-                <a href="currency.html" class="nav__link">Валюты</a>
-                <a href="expenses.html" class="nav__link nav__link--active">Расходы</a>
-                <a href="login.html" class="nav__link" id="login-link">Войти</a>
+                <a href="index.html" class="nav__link">Tasks</a>
+                <a href="currency.html" class="nav__link">Currencies</a>
+                <a href="expenses.html" class="nav__link nav__link--active">Expenses</a>
+                <a href="feedback.html" class="nav__link">Feedback</a>
+                <a href="login.html" class="nav__link" id="login-link">Sign In</a>
                 <span id="user-chip" class="chip" style="display:none;"></span>
-                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Выйти</button>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Sign Out</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <span class="theme-toggle__icon">🌞</span>
-                    <span class="theme-toggle__text">Светлая</span>
+                    <span class="theme-toggle__text">Light</span>
                 </button>
             </div>
         </div>
     </nav>
     
     <main class="app" aria-labelledby="app-title">
-        <h1 id="app-title" class="app__title">Учет расходов</h1>
+        <h1 id="app-title" class="app__title">Expense Tracker</h1>
         
-        <section class="expense-form" aria-label="Добавление расхода">
+        <section class="expense-form" aria-label="Add expense">
             <form id="expense-form" class="expense-form__form" novalidate>
                 <div class="expense-form__grid">
                     <div class="expense-form__group">
-                        <label for="expense-title" class="expense-form__label">Описание</label>
-                        <input id="expense-title" name="title" type="text" class="expense-form__input" placeholder="Например: кофе 3.2€ #утро" maxlength="100" required>
-                        <small class="hint">Можно вводить в свободной форме: сумма, эмодзи, #теги — распознаются автоматически</small>
+                        <label for="expense-title" class="expense-form__label">Description</label>
+                        <input id="expense-title" name="title" type="text" class="expense-form__input" placeholder="e.g.: coffee 3.2€ #morning" maxlength="100" required>
+                        <small class="hint">You can enter freely: amount, emojis, #tags — recognized automatically</small>
                     </div>
                     
                     <div class="expense-form__group">
-                        <label for="expense-amount" class="expense-form__label">Сумма</label>
+                        <label for="expense-amount" class="expense-form__label">Amount</label>
                         <div style="display:flex; gap:8px; align-items:center;">
                             <input id="expense-amount" name="amount" type="number" class="expense-form__input" placeholder="0.00" step="0.01" min="0" required>
-                            <button type="button" id="open-calculator" class="btn btn--ghost" aria-haspopup="dialog" aria-controls="calculator-modal">Калькулятор</button>
+                            <button type="button" id="open-calculator" class="btn btn--ghost" aria-haspopup="dialog" aria-controls="calculator-modal">Calculator</button>
                         </div>
                     </div>
                     
                     <div class="expense-form__group">
-                        <label for="expense-category" class="expense-form__label">Категория</label>
+                        <label for="expense-category" class="expense-form__label">Category</label>
                         <select id="expense-category" name="category" class="expense-form__select" required>
-                            <option value="">Выберите категорию</option>
-                            <option value="food">🍔 Еда и напитки</option>
-                            <option value="transport">🚗 Транспорт</option>
-                            <option value="shopping">🛍️ Покупки</option>
-                            <option value="entertainment">🎬 Развлечения</option>
-                            <option value="health">🏥 Здоровье</option>
-                            <option value="education">📚 Образование</option>
-                            <option value="utilities">🏠 Коммунальные услуги</option>
-                            <option value="rent">🏢 Аренда/Ипотека</option>
-                            <option value="internet">🌐 Интернет</option>
-                            <option value="phone">📱 Связь</option>
-                            <option value="fitness">🏋️ Фитнес</option>
-                            <option value="travel">✈️ Путешествия</option>
-                            <option value="gifts">🎁 Подарки</option>
-                            <option value="pets">🐾 Питомцы</option>
-                            <option value="Coffee">☕️ Кофе</option>
-                            <option value="snacks">🍫 Перекусы</option>
-                            <option value="beauty">💄 Красота</option>
-                            <option value="taxes">💼 Налоги/Штрафы</option>
-                            <option value="savings">💰 Сбережения</option>
-                            <option value="investments">📈 Инвестиции</option>
-                            <option value="other">📝 Прочее</option>
+                            <option value="">Select category</option>
+                            <option value="food">🍔 Food & Drinks</option>
+                            <option value="transport">🚗 Transport</option>
+                            <option value="shopping">🛍️ Shopping</option>
+                            <option value="entertainment">🎬 Entertainment</option>
+                            <option value="health">🏥 Health</option>
+                            <option value="education">📚 Education</option>
+                            <option value="utilities">🏠 Utilities</option>
+                            <option value="rent">🏢 Rent/Mortgage</option>
+                            <option value="internet">🌐 Internet</option>
+                            <option value="phone">📱 Phone</option>
+                            <option value="fitness">🏋️ Fitness</option>
+                            <option value="travel">✈️ Travel</option>
+                            <option value="gifts">🎁 Gifts</option>
+                            <option value="pets">🐾 Pets</option>
+                            <option value="Coffee">☕️ Coffee</option>
+                            <option value="snacks">🍫 Snacks</option>
+                            <option value="beauty">💄 Beauty</option>
+                            <option value="taxes">💼 Taxes/Fines</option>
+                            <option value="savings">💰 Savings</option>
+                            <option value="investments">📈 Investments</option>
+                            <option value="other">📝 Other</option>
                         </select>
                     </div>
                     
                     <div class="expense-form__group">
-                        <label for="expense-date" class="expense-form__label">Дата</label>
+                        <label for="expense-date" class="expense-form__label">Date</label>
                         <input id="expense-date" name="date" type="date" class="expense-form__date" required>
                     </div>
                     
-                    <button type="submit" class="btn btn--primary">Добавить расход</button>
+                    <button type="submit" class="btn btn--primary">Add Expense</button>
                 </div>
             </form>
             <div class="quick-templates" aria-label="Быстрые траты">
@@ -396,11 +399,11 @@
         Управляйте финансами осознанно. Экспортируйте CSV и анализируйте траты.
     </footer>
 
-    <script defer src="theme.js"></script>
-    <script defer src="auth.js"></script>
-    <script defer src="nav.js"></script>
-    <script defer src="expenses.js"></script>
-    <script defer src="chat.js"></script>
+    <script defer src="js/theme.js"></script>
+    <script defer src="js/auth-ajax.js"></script>
+    <script defer src="js/nav.js"></script>
+    <script defer src="js/expenses.js"></script>
+    <script defer src="js/chat.js"></script>
     
     <noscript>
         Похоже, у вас отключен JavaScript. Для работы учета расходов его необходимо включить.

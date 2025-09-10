@@ -1,0 +1,51 @@
+====================================
+TASKFLOW DESKTOP - GUIA DE INSTALAÇÃO
+====================================
+
+📍 LOCALIZAÇÃO:
+A pasta TaskFlow-Desktop está em:
+C:\Users\andko\Desktop\TaskFlow\TaskFlow-Desktop
+
+🛠️ COMO INSTALAR:
+
+1. ABRA O PROMPT DE COMANDO (CMD):
+   - Pressione Windows + R
+   - Digite: cmd
+   - Pressione Enter
+
+2. NAVEGUE ATÉ A PASTA:
+   cd "C:\Users\andko\Desktop\TaskFlow\TaskFlow-Desktop"
+
+3. INSTALE AS DEPENDÊNCIAS:
+   npm install
+
+4. EXECUTE EM MODO DESENVOLVIMENTO:
+   npm run dev
+
+5. PARA CRIAR O INSTALADOR:
+   npm run build
+   npm run dist
+
+📁 ESTRUTURA DA PASTA:
+TaskFlow-Desktop/
+├── package.json         # Configuração do projeto
+├── main.js             # Arquivo principal do Electron
+├── preload.js          # Script de segurança
+├── web/                # Interface web
+│   ├── index.html      # Página principal
+│   ├── css/           # Estilos
+│   └── js/            # Scripts JavaScript
+└── assets/            # Ícones e recursos
+
+🚀 PRÓXIMOS PASSOS:
+1. Navegue até a pasta TaskFlow-Desktop
+2. Execute os comandos de instalação
+3. Teste a aplicação com npm run dev
+
+⚠️ REQUISITOS:
+- Node.js instalado (https://nodejs.org)
+- Windows 10/11
+
+💡 DICA:
+Use o Explorador de Arquivos para navegar até:
+C:\Users\andko\Desktop\TaskFlow\TaskFlow-Desktop

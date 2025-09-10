@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>TaskFlow - React Integration Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 16px;
+        }
+        
+        .demo-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+        }
+        
+        .demo-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-section h2 {
+            color: #4f46e5;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+        }
+        
+        .demo-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .demo-info h3 {
+            color: #2d3748;
+            margin: 0 0 12px 0;
+            font-size: 18px;
+        }
+        
+        .demo-info p {
+            color: #4a5568;
+            margin: 0 0 8px 0;
+            line-height: 1.6;
+        }
+        
+        .demo-code {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        
+        .demo-steps {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .demo-steps li {
+            background: #f7fafc;
+            border-left: 4px solid #4f46e5;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .demo-steps li strong {
+            color: #4f46e5;
+        }
+        
+        .react-container {
+            border: 2px dashed #4f46e5;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fafbff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav__container">
+            <a href="index.html" class="nav__brand">TaskFlow</a>
+            <div class="nav__links">
+                <a href="index.html" class="nav__link">Tasks</a>
+                <a href="currency.html" class="nav__link">Currencies</a>
+                <a href="expenses.html" class="nav__link">Expenses</a>
+                <a href="login.html" class="nav__link">Sign In</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-toggle__icon">🌞</span>
+                    <span class="theme-toggle__text">Light</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1 class="demo-title">🚀 React Integration Demo</h1>
+            <p class="demo-subtitle">TaskFlow + React + PHP + MySQL</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>📋 React TodoList Component</h2>
+            <div class="demo-info">
+                <h3>What you're seeing:</h3>
+                <p>This is a fully functional React component that communicates with your PHP backend and MySQL database. The component handles:</p>
+                <ul>
+                    <li>✅ Adding new tasks</li>
+                    <li>✅ Marking tasks as complete/incomplete</li>
+                    <li>✅ Deleting individual tasks</li>
+                    <li>✅ Clearing all tasks</li>
+                    <li>✅ Real-time updates via AJAX</li>
+                    <li>✅ Error handling and loading states</li>
+                </ul>
+            </div>
+            
+            <div class="react-container">
+                <div id="react-todo-container">
+                    <!-- React TodoList component will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🛠️ Technical Implementation</h2>
+            
+            <div class="demo-info">
+                <h3>Project Structure:</h3>
+                <div class="demo-code">
+TaskFlow/
+├── react/                    # React components
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── TodoList.jsx  # React TodoList component
+│   │   └── main.jsx          # React entry point
+│   ├── package.json          # React dependencies
+│   └── vite.config.js        # Vite build configuration
+├── php/
+│   └── tasks-api.php         # PHP API for tasks
+├── db/
+│   └── schema.sql            # Database schema (includes tasks table)
+└── js/
+    └── react-build/          # Built React components (after build)
+                </div>
+            </div>
+
+            <div class="demo-info">
+                <h3>How it works:</h3>
+                <ol class="demo-steps">
+                    <li><strong>React Component:</strong> TodoList.jsx renders the UI and manages state</li>
+                    <li><strong>AJAX Communication:</strong> Uses axios to communicate with PHP API</li>
+                    <li><strong>PHP API:</strong> tasks-api.php handles CRUD operations</li>
+                    <li><strong>MySQL Database:</strong> Tasks are stored in the 'tasks' table</li>
+                    <li><strong>Real-time Updates:</strong> UI updates immediately after API calls</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Setup Instructions</h2>
+            
+            <div class="demo-info">
+                <h3>Prerequisites:</h3>
+                <p>Make sure you have Node.js and npm installed on your system.</p>
+            </div>
+
+            <div class="demo-info">
+                <h3>Step 1: Install Dependencies</h3>
+                <div class="demo-code">
+cd react
+npm install
+                </div>
+            </div>
+
+            <div class="demo-info">
+                <h3>Step 2: Build React Components</h3>
+                <div class="demo-code">
+npm run build
+                </div>
+                <p>This will create the built files in <code>js/react-build/</code></p>
+            </div>
+
+            <div class="demo-info">
+                <h3>Step 3: Update Database</h3>
+                <p>Run the updated schema.sql to create the tasks table:</p>
+                <div class="demo-code">
+-- Import the updated schema.sql in phpMyAdmin
+-- This will create the 'tasks' table for React integration
+                </div>
+            </div>
+
+            <div class="demo-info">
+                <h3>Step 4: Include React in Your Pages</h3>
+                <p>Add this to any HTML page where you want React components:</p>
+                <div class="demo-code">
+&lt;!-- Include the built React components --&gt;
+&lt;script type="module" src="js/react-build/main.js"&gt;&lt;/script&gt;
+
+&lt;!-- Container for React component --&gt;
+&lt;div id="react-todo-container"&gt;&lt;/div&gt;
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🔧 Development Mode</h2>
+            
+            <div class="demo-info">
+                <h3>For Development:</h3>
+                <div class="demo-code">
+cd react
+npm run dev
+                </div>
+                <p>This starts Vite dev server on <code>http://localhost:3000</code></p>
+            </div>
+
+            <div class="demo-info">
+                <h3>API Endpoints:</h3>
+                <ul>
+                    <li><strong>GET /api/tasks.php</strong> - Get all tasks</li>
+                    <li><strong>POST /api/tasks.php</strong> - Add/update/delete tasks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include React components -->
+    <script type="module" src="js/react-build/main.js"></script>
+    
+    <!-- Include existing scripts -->
+    <script defer src="js/theme.js"></script>
+    <script defer src="js/nav.js"></script>
+    <script defer src="js/chat.js"></script>
+</body>
+</html>

@@ -10,10 +10,12 @@
       const text = toggle.querySelector('.theme-toggle__text');
       if (theme === 'dark') {
         if (icon) icon.textContent = '🌙';
-        if (text) text.textContent = 'Тёмная';
+        if (text) text.textContent = 'Dark';
+        document.body.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
       } else {
         if (icon) icon.textContent = '🌞';
-        if (text) text.textContent = 'Светлая';
+        if (text) text.textContent = 'Light';
+        document.body.style.background = 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)';
       }
     }
   }

@@ -2,24 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>TaskFlow - Enhanced Task Management</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Tasks - TaskFlow</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/enhanced-tasks.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="nav">
         <div class="nav__container">
             <a href="index.html" class="nav__brand">TaskFlow</a>
             <div class="nav__links">
-                <a href="index.html" class="nav__link nav__link--active">Tasks</a>
+                <a href="index.html" class="nav__link">Tasks</a>
                 <a href="currency.html" class="nav__link">Currencies</a>
                 <a href="expenses.html" class="nav__link">Expenses</a>
                 <a href="feedback.html" class="nav__link">Feedback</a>
@@ -33,7 +30,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="tasks-container">
@@ -58,23 +55,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Weather Section (kept from original) -->
-            <section class="weather-card" aria-label="Weather">
-                <div class="weather-card__row">
-                    <div class="weather-card__main">
-                        <div class="weather-card__icon" id="weather-icon">⛅</div>
-                        <div>
-                            <div id="weather-temp" class="weather-card__temp">—°</div>
-                            <div id="weather-desc" class="weather-card__desc">Loading weather…</div>
-                        </div>
-                    </div>
-                    <div class="weather-card__meta">
-                        <div id="weather-city" class="weather-card__city">—</div>
-                        <div id="weather-wind" class="weather-card__wind">Wind — m/s</div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Task Statistics -->
             <div class="task-stats">
@@ -118,7 +98,7 @@
 
             <!-- Task Form -->
             <div class="task-form-container">
-                <form id="enhanced-task-form" class="task-form">
+                <form id="task-form" class="task-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="task-title" class="form-label">
@@ -210,6 +190,14 @@
                     </button>
                 </div>
                 
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    <button class="view-btn" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Tasks List -->
@@ -234,40 +222,21 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        Made with ♥ for productivity. <a href="https://" target="_blank" rel="noopener">TaskFlow</a>
+        <div class="footer__content">
+            <p>&copy; 2024 TaskFlow. All rights reserved.</p>
+            <div class="footer__links">
+                <a href="feedback.html">Feedback</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
     </footer>
 
-    <script defer src="js/theme.js"></script>
-    <script defer src="js/auth-ajax.js"></script>
-    <script defer src="js/nav.js"></script>
-    <script defer src="js/weather.js"></script>
-    <script defer src="js/enhanced-tasks.js"></script>
-    <script defer src="js/chat.js"></script>
-    
-    <!-- Performance optimization -->
-    <script>
-        // Preload critical resources
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                // Preload non-critical resources when browser is idle
-                const link = document.createElement('link');
-                link.rel = 'prefetch';
-                link.href = 'css/chat.css';
-                document.head.appendChild(link);
-            });
-        }
-        
-        // Add loading state
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('loaded');
-        });
-    </script>
-    
-    <noscript>
-        Похоже, у вас отключен JavaScript. Для работы TaskFlow его необходимо включить.
-    </noscript>
+    <!-- Scripts -->
+    <script src="js/nav.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/enhanced-tasks.js"></script>
 </body>
 </html>
-
-

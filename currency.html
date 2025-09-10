@@ -1,131 +1,134 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>TaskFlow - Конвертер валют</title>
+    <title>TaskFlow - Currency Converter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/chat.css">
 </head>
 <body>
     <nav class="nav">
         <div class="nav__container">
             <a href="index.html" class="nav__brand">TaskFlow</a>
             <div class="nav__links">
-                <a href="index.html" class="nav__link">Задачи</a>
-                <a href="currency.html" class="nav__link nav__link--active">Валюты</a>
-                <a href="expenses.html" class="nav__link">Расходы</a>
-                <a href="login.html" class="nav__link" id="login-link">Войти</a>
+                <a href="index.html" class="nav__link">Tasks</a>
+                <a href="currency.html" class="nav__link nav__link--active">Currencies</a>
+                <a href="expenses.html" class="nav__link">Expenses</a>
+                <a href="feedback.html" class="nav__link">Feedback</a>
+                <a href="login.html" class="nav__link" id="login-link">Sign In</a>
                 <span id="user-chip" class="chip" style="display:none;"></span>
-                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Выйти</button>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">
+                <button id="logout-btn" class="btn btn--ghost" style="display:none;">Sign Out</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
                     <span class="theme-toggle__icon">🌞</span>
-                    <span class="theme-toggle__text">Светлая</span>
+                    <span class="theme-toggle__text">Light</span>
                 </button>
             </div>
         </div>
     </nav>
     
     <main class="app" aria-labelledby="app-title">
-        <h1 id="app-title" class="app__title">Конвертер валют</h1>
+        <h1 id="app-title" class="app__title">Currency Converter</h1>
         
-        <section class="converter" aria-label="Конвертер валют">
+        <section class="converter" aria-label="Currency converter">
             <div class="converter__group">
-                <label for="amount" class="converter__label">Сумма</label>
+                <label for="amount" class="converter__label">Amount</label>
                 <input id="amount" type="number" class="converter__input" placeholder="0.00" step="0.01" min="0">
             </div>
             
             <div class="converter__group">
-                <label for="from-currency" class="converter__label">Из</label>
+                <label for="from-currency" class="converter__label">From</label>
                 <select id="from-currency" class="converter__select">
-                    <option value="USD">USD - Доллар США</option>
-                    <option value="EUR" selected>EUR - Евро</option>
-                    <option value="RUB">RUB - Российский рубль</option>
-                    <option value="GBP">GBP - Британский фунт</option>
-                    <option value="JPY">JPY - Японская иена</option>
-                    <option value="CNY">CNY - Китайский юань</option>
-                    <option value="CAD">CAD - Канадский доллар</option>
-                    <option value="AUD">AUD - Австралийский доллар</option>
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR" selected>EUR - Euro</option>
+                    <option value="RUB">RUB - Russian Ruble</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="JPY">JPY - Japanese Yen</option>
+                    <option value="CNY">CNY - Chinese Yuan</option>
+                    <option value="CAD">CAD - Canadian Dollar</option>
+                    <option value="AUD">AUD - Australian Dollar</option>
                 </select>
             </div>
             
-            <button id="swap-currencies" class="converter__swap" aria-label="Поменять валюты местами">
+            <button id="swap-currencies" class="converter__swap" aria-label="Swap currencies">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/>
                 </svg>
             </button>
             
             <div class="converter__group">
-                <label for="to-currency" class="converter__label">В</label>
+                <label for="to-currency" class="converter__label">To</label>
                 <select id="to-currency" class="converter__select">
-                    <option value="USD" selected>USD - Доллар США</option>
-                    <option value="EUR">EUR - Евро</option>
-                    <option value="RUB">RUB - Российский рубль</option>
-                    <option value="GBP">GBP - Британский фунт</option>
-                    <option value="JPY">JPY - Японская иена</option>
-                    <option value="CNY">CNY - Китайский юань</option>
-                    <option value="CAD">CAD - Канадский доллар</option>
-                    <option value="AUD">AUD - Австралийский доллар</option>
+                    <option value="USD" selected>USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="RUB">RUB - Russian Ruble</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="JPY">JPY - Japanese Yen</option>
+                    <option value="CNY">CNY - Chinese Yuan</option>
+                    <option value="CAD">CAD - Canadian Dollar</option>
+                    <option value="AUD">AUD - Australian Dollar</option>
                 </select>
             </div>
             
             <div class="converter__group">
-                <label for="result" class="converter__label">Результат</label>
+                <label for="result" class="converter__label">Result</label>
                 <input id="result" type="text" class="converter__input" readonly placeholder="0.00">
             </div>
         </section>
 
-        <div class="quick-templates" aria-label="Быстрые суммы" style="margin-top:12px;">
+        <div class="quick-templates" aria-label="Quick amounts" style="margin-top:12px;">
             <button class="chip" data-amount="10">€10</button>
             <button class="chip" data-amount="20">€20</button>
             <button class="chip" data-amount="50">€50</button>
             <button class="chip" data-amount="100">€100</button>
         </div>
         
-        <section class="rates" aria-label="Курсы валют">
-            <h2 class="rates__title">Популярные курсы</h2>
+        <section class="rates" aria-label="Exchange rates">
+            <h2 class="rates__title">Popular Rates</h2>
             <div id="rates-list" class="rates__list">
                 <div class="rate">
-                    <span class="rate__currency">Загрузка...</span>
+                    <span class="rate__currency">Loading...</span>
                     <span class="rate__value">—</span>
                 </div>
             </div>
         </section>
 
-        <section class="chart-container" aria-label="График EUR/USD (реал-тайм)">
-            <h2 class="chart-container__title">EUR/USD — последние 24 часа</h2>
-            <div id="chart-eurusd" class="chart-placeholder">График загрузится…</div>
+        <section class="chart-container" aria-label="EUR/USD chart (real-time)">
+            <h2 class="chart-container__title">EUR/USD — Last 24 hours</h2>
+            <div id="chart-eurusd" class="chart-placeholder">Chart loading…</div>
         </section>
 
-        <section class="chart-container" aria-label="График EUR/UAH (реал-тайм)">
-            <h2 class="chart-container__title">EUR/UAH — последние 24 часа</h2>
-            <div id="chart-euruah" class="chart-placeholder">График загрузится…</div>
+        <section class="chart-container" aria-label="EUR/UAH chart (real-time)">
+            <h2 class="chart-container__title">EUR/UAH — Last 24 hours</h2>
+            <div id="chart-euruah" class="chart-placeholder">Chart loading…</div>
         </section>
 
-        <section class="chart-container" aria-label="График USD/UAH (реал-тайм)">
-            <h2 class="chart-container__title">USD/UAH — последние 24 часа</h2>
-            <div id="chart-usduah" class="chart-placeholder">График загрузится…</div>
+        <section class="chart-container" aria-label="USD/UAH chart (real-time)">
+            <h2 class="chart-container__title">USD/UAH — Last 24 hours</h2>
+            <div id="chart-usduah" class="chart-placeholder">Chart loading…</div>
         </section>
         
         <div id="error-message" class="error-message" style="display: none;">
-            <p>Ошибка загрузки курсов валют. Проверьте подключение к интернету.</p>
+            <p>Error loading exchange rates. Please check your internet connection.</p>
         </div>
     </main>
 
     <footer class="footer">
-        Конвертер валют • Данные обновляются автоматически.
+        Currency Converter • Data updates automatically.
     </footer>
 
-    <script defer src="theme.js"></script>
-    <script defer src="auth.js"></script>
-    <script defer src="nav.js"></script>
-    <script defer src="currency.js"></script>
-    <script defer src="chat.js"></script>
+    <script defer src="js/theme.js"></script>
+    <script defer src="js/auth-ajax.js"></script>
+    <script defer src="js/nav.js"></script>
+    <script defer src="js/currency.js"></script>
+    <script defer src="js/chat.js"></script>
     
     <noscript>
-        Похоже, у вас отключен JavaScript. Для работы конвертера валют его необходимо включить.
+        It looks like JavaScript is disabled. Please enable JavaScript to use the currency converter.
     </noscript>
 </body>
 </html>

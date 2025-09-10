@@ -24,14 +24,14 @@
 
   function describe(code) {
     const map = {
-      0: 'Ясно', 1: 'Преимущественно ясно', 2: 'Переменная облачность', 3: 'Пасмурно',
-      45: 'Туман', 48: 'Туман', 51: 'Лёгкая морось', 53: 'Морось', 55: 'Сильная морось',
-      56: 'Ледяная морось', 57: 'Сильная ледяная морось', 61: 'Небольшой дождь', 63: 'Дождь', 65: 'Сильный дождь',
-      66: 'Ледяной дождь', 67: 'Сильный ледяной дождь', 71: 'Небольшой снег', 73: 'Снег', 75: 'Сильный снег',
-      77: 'Снежные зёрна', 80: 'Ливни', 81: 'Сильные ливни', 82: 'Очень сильные ливни', 85: 'Снеговые ливни', 86: 'Сильные снеговые ливни',
-      95: 'Гроза', 96: 'Гроза с градом', 99: 'Сильная гроза с градом',
+      0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+      45: 'Fog', 48: 'Fog', 51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+      56: 'Light freezing drizzle', 57: 'Heavy freezing drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+      66: 'Freezing rain', 67: 'Heavy freezing rain', 71: 'Light snow', 73: 'Snow', 75: 'Heavy snow',
+      77: 'Snow grains', 80: 'Rain showers', 81: 'Heavy rain showers', 82: 'Very heavy rain showers', 85: 'Snow showers', 86: 'Heavy snow showers',
+      95: 'Thunderstorm', 96: 'Thunderstorm with hail', 99: 'Heavy thunderstorm with hail',
     };
-    return map[code] || 'Погодные условия';
+    return map[code] || 'Weather conditions';
   }
 
   async function fetchWeather(lat, lon) {
@@ -46,9 +46,9 @@
       const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      return data.address?.city || data.address?.town || data.address?.village || data.display_name || 'Ваше местоположение';
+      return data.address?.city || data.address?.town || data.address?.village || data.display_name || 'Your location';
     } catch (_) {
-      return 'Ваше местоположение';
+      return 'Your location';
     }
   }
 

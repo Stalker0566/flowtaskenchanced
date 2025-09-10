@@ -1,0 +1,42 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="check" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="256" height="256" rx="32" fill="url(#bg)"/>
+  
+  <!-- Task List Icon -->
+  <g transform="translate(64, 64)">
+    <!-- Paper/List Background -->
+    <rect x="0" y="0" width="128" height="128" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+    
+    <!-- Task Lines -->
+    <line x1="20" y1="30" x2="100" y2="30" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="70" x2="90" y2="70" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="20" y1="90" x2="70" y2="90" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Checkboxes -->
+    <rect x="8" y="22" width="8" height="8" rx="2" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+    <rect x="8" y="42" width="8" height="8" rx="2" fill="url(#check)" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+    <rect x="8" y="62" width="8" height="8" rx="2" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+    <rect x="8" y="82" width="8" height="8" rx="2" fill="url(#check)" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
+    
+    <!-- Checkmarks -->
+    <path d="M10 46 L12 48 L14 44" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M10 86 L12 88 L14 84" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- Desktop indicator -->
+  <circle cx="200" cy="56" r="16" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <rect x="192" y="48" width="16" height="12" rx="2" fill="rgba(255,255,255,0.6)"/>
+  <rect x="194" y="50" width="12" height="8" rx="1" fill="rgba(255,255,255,0.8)"/>
+</svg>

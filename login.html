@@ -1,97 +1,317 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>TaskFlow - Вход</title>
+    <title>TaskFlow - Sign In</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 48px;
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        
+        .login-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 8px 0;
+        }
+        
+        .login-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: #fff;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 4px;
+        }
+        
+        .password-toggle:hover {
+            color: #4f46e5;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #4f46e5;
+        }
+        
+        .checkbox-label {
+            color: #374151;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            background: transparent;
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+        
+        .btn-secondary:hover {
+            background: #4f46e5;
+            color: white;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 24px;
+        }
+        
+        .forgot-link {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+        
+        .forgot-link:hover {
+            color: #4f46e5;
+        }
+        
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 16px;
+            border: 1px solid #fecaca;
+        }
+        
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 16px;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .form-hint {
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
+                margin: 16px;
+            }
+            
+            .login-title {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav__container">
-            <a href="index.html" class="nav__brand">TaskFlow</a>
+    <div class="login-container">
+        <div class="login-header">
+            <a href="index.html" class="login-logo">TaskFlow</a>
+            <h1 class="login-title" id="page-title">Welcome Back</h1>
+            <p class="login-subtitle" id="page-subtitle">Sign in to your account to continue</p>
         </div>
-    </nav>
 
-    <main class="app" aria-labelledby="app-title">
-        <h1 id="app-title" class="app__title">Вход в аккаунт</h1>
-
-        <section class="composer" aria-label="Аутентификация">
-            <form id="auth-form" class="composer__form" novalidate style="flex-direction:column; gap:12px;">
-                <div>
-                    <label for="auth-email" class="expense-form__label">Email</label>
-                    <input id="auth-email" type="email" class="composer__input" placeholder="you@example.com" required>
-                </div>
-                <div>
-                    <label for="auth-password" class="expense-form__label">Пароль</label>
-                    <div style="display:flex; gap:8px; align-items:center;">
-                        <input id="auth-password" type="password" class="composer__input" placeholder="••••••••" minlength="6" required style="flex:1;">
-                        <button type="button" id="toggle-password" class="btn btn--ghost" aria-label="Показать пароль">Показать</button>
-                    </div>
-                    <div id="password-strength" class="hint">Минимум 6 символов</div>
-                </div>
-                <label style="display:flex; align-items:center; gap:8px;">
-                    <input id="remember-me" type="checkbox"> Запомнить меня (7 дней)
-                </label>
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <button type="submit" class="btn btn--primary" id="auth-submit">Войти</button>
-                    <button type="button" class="btn btn--ghost" id="toggle-mode">Перейти к регистрации</button>
-                </div>
-                <p id="auth-error" class="error-message" style="display:none;">Ошибка</p>
-            </form>
-            <div style="margin-top:12px;">
-                <button id="forgot-btn" class="btn btn--ghost">Забыли пароль?</button>
+        <!-- Login Form -->
+        <form id="auth-form" class="auth-form">
+            <div class="form-group">
+                <label for="auth-email" class="form-label">Email Address</label>
+                <input id="auth-email" type="email" class="form-input" placeholder="Enter your email" required>
             </div>
-            <form id="recovery-form" class="composer__form" novalidate style="flex-direction:column; gap:10px; display:none; margin-top:10px;">
-                <div>
-                    <label for="recovery-email" class="expense-form__label">Email</label>
-                    <input id="recovery-email" type="email" class="composer__input" placeholder="you@example.com">
+            
+            <div class="form-group">
+                <label for="auth-password" class="form-label">Password</label>
+                <div class="password-container">
+                    <input id="auth-password" type="password" class="form-input" placeholder="Enter your password" minlength="6" required>
+                    <button type="button" id="toggle-password" class="password-toggle">Show</button>
                 </div>
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <button type="button" id="request-code" class="btn btn--ghost">Получить код</button>
-                    <span id="recovery-hint" class="hint"></span>
-                </div>
-                <div>
-                    <label for="recovery-code" class="expense-form__label">Код</label>
-                    <input id="recovery-code" type="text" class="composer__input" placeholder="6-значный код">
-                </div>
-                <div>
-                    <label for="recovery-newpass" class="expense-form__label">Новый пароль</label>
-                    <input id="recovery-newpass" type="password" class="composer__input" placeholder="Новый пароль">
-                </div>
-                <button type="submit" class="btn btn--primary">Сбросить пароль</button>
-                <p id="recovery-error" class="error-message" style="display:none;">Ошибка</p>
-            </form>
+                <div class="form-hint">Minimum 6 characters</div>
+            </div>
+            
+            <div class="checkbox-container">
+                <input id="remember-me" type="checkbox" class="checkbox">
+                <label for="remember-me" class="checkbox-label">Remember me for 7 days</label>
+            </div>
+            
+            <button type="submit" class="btn-primary" id="auth-submit">Sign In</button>
+            <button type="button" class="btn-secondary" id="toggle-mode">Create New Account</button>
+            
+            <div id="auth-error" class="error-message hidden"></div>
+        </form>
 
-            <form id="verify-form" class="composer__form" novalidate style="flex-direction:column; gap:10px; display:none; margin-top:14px;">
-                <div class="hint">Мы отправили код подтверждения на вашу почту. Введите 5–6‑значный код ниже.</div>
-                <div>
-                    <label for="verify-email" class="expense-form__label">Email</label>
-                    <input id="verify-email" type="email" class="composer__input" readonly>
-                </div>
-                <div>
-                    <label for="verify-code" class="expense-form__label">Код подтверждения</label>
-                    <input id="verify-code" type="text" class="composer__input" placeholder="Напр., 123456" maxlength="6">
-                </div>
-                <div style="display:flex; gap:8px; align-items:center;">
-                    <button type="submit" class="btn btn--primary">Подтвердить</button>
-                    <button type="button" id="resend-code" class="btn btn--ghost">Отправить код ещё раз</button>
-                    <span id="verify-hint" class="hint"></span>
-                </div>
-                <p id="verify-error" class="error-message" style="display:none;">Ошибка</p>
-            </form>
-        </section>
-    </main>
+        <!-- Recovery Form -->
+        <form id="recovery-form" class="auth-form hidden">
+            <div class="form-group">
+                <label for="recovery-email" class="form-label">Email Address</label>
+                <input id="recovery-email" type="email" class="form-input" placeholder="Enter your email">
+            </div>
+            
+            <button type="button" id="request-code" class="btn-primary">Send Recovery Code</button>
+            <div id="recovery-hint" class="form-hint"></div>
+            
+            <div class="form-group">
+                <label for="recovery-code" class="form-label">Recovery Code</label>
+                <input id="recovery-code" type="text" class="form-input" placeholder="6-digit code">
+            </div>
+            
+            <div class="form-group">
+                <label for="recovery-newpass" class="form-label">New Password</label>
+                <input id="recovery-newpass" type="password" class="form-input" placeholder="Enter new password">
+            </div>
+            
+            <button type="submit" class="btn-primary">Reset Password</button>
+            <button type="button" class="btn-secondary" id="back-to-login">Back to Sign In</button>
+            
+            <div id="recovery-error" class="error-message hidden"></div>
+        </form>
 
-    <footer class="footer">
-        Ваша сессия хранится локально в браузере.
-    </footer>
+        <!-- Verification Form -->
+        <form id="verify-form" class="auth-form hidden">
+            <div class="form-hint">We've sent a verification code to your email. Please enter the 5-6 digit code below.</div>
+            
+            <div class="form-group">
+                <label for="verify-email" class="form-label">Email</label>
+                <input id="verify-email" type="email" class="form-input" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="verify-code" class="form-label">Verification Code</label>
+                <input id="verify-code" type="text" class="form-input" placeholder="e.g., 123456" maxlength="6">
+            </div>
+            
+            <button type="submit" class="btn-primary">Verify Account</button>
+            <button type="button" id="resend-code" class="btn-secondary">Resend Code</button>
+            <div id="verify-hint" class="form-hint"></div>
+            
+            <div id="verify-error" class="error-message hidden"></div>
+        </form>
 
-    <script defer src="auth.js"></script>
-    <script defer src="login.js"></script>
+        <div class="forgot-password">
+            <button id="forgot-btn" class="forgot-link">Forgot your password?</button>
+        </div>
+    </div>
+
+    <script defer src="js/auth-ajax.js"></script>
+    <script defer src="js/login.js"></script>
 </body>
 </html>
 

@@ -64,7 +64,7 @@
     checkbox.type = 'checkbox';
     checkbox.className = 'task__checkbox';
     checkbox.checked = task.done;
-    checkbox.setAttribute('aria-label', 'Отметить выполненным');
+    checkbox.setAttribute('aria-label', 'Mark as completed');
 
     const title = document.createElement('p');
     title.className = 'task__title';
@@ -73,8 +73,8 @@
     const del = document.createElement('button');
     del.className = 'btn task__delete';
     del.type = 'button';
-    del.setAttribute('aria-label', 'Удалить задачу');
-    del.textContent = 'Удалить';
+    del.setAttribute('aria-label', 'Delete task');
+    del.textContent = 'Delete';
 
     li.appendChild(checkbox);
     li.appendChild(title);
